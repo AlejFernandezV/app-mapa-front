@@ -20,7 +20,7 @@ export class EditMarkerModalComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.markerForm = this.fb.group({
-      name: [data.title, Validators.required],
+      title: [data.title, Validators.required],
       description: [data.description, Validators.required]
     });
   }
@@ -38,7 +38,7 @@ export class EditMarkerModalComponent implements OnInit{
       const formValue = this.markerForm.value;
       this.dialogRef.close({
         ...this.data,
-        name: formValue.name,
+        title: formValue.title,
         description: formValue.description
       });
     }

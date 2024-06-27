@@ -17,6 +17,18 @@ export class MapComponent {
     streetViewControl: false
   };
 
+  Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  })
+
   constructor(public dialog: MatDialog, private markerService: MarkerService){}
 
   center: google.maps.LatLngLiteral = {
@@ -52,7 +64,7 @@ export class MapComponent {
           this.markerService.addMarker(newMarker).subscribe({
             next:(response) => {
               console.log(response)
-              Swal.fire({
+              this.Toast.fire({
                 title: 'Creación exitosa!',
                 text: 'Se ha creado el maracador con éxito!',
                 icon: 'success',
@@ -60,7 +72,7 @@ export class MapComponent {
             },
             error: (error) => {
               console.log(error)
-              Swal.fire({
+              this.Toast.fire({
                 title: 'Error!',
                 text: 'Ha ocurrido un error al crear el marcador!',
                 icon: 'error',

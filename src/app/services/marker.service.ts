@@ -11,10 +11,10 @@ export class MarkerService {
   private markersSubject = new BehaviorSubject<Marker[]>([]);
   markers$ = this.markersSubject.asObservable();
 
-  constructor(private htttp: HttpClient){}
+  constructor(private http: HttpClient){}
 
   addMarker(marker: Marker): Observable<Marker>{
-    return this.htttp.post<Marker>(this.apiUrl, marker).pipe(
+    return this.http.post<Marker>(this.apiUrl, marker).pipe(
       tap((response) => {
         const currentMarkers = this.markersSubject.value;
         this.markersSubject.next([...currentMarkers, response])
@@ -31,7 +31,7 @@ export class MarkerService {
   }
 
   getAllMarkers(): Observable<Marker[]>{
-    return this.htttp.get<Marker[]>(this.apiUrl).pipe(
+    return this.http.get<Marker[]>(this.apiUrl).pipe(
       tap((response) => {
         this.markersSubject.next(response);
       }),
@@ -42,10 +42,34 @@ export class MarkerService {
     )
   }
 
+
+  updateMarker(marker: Marker): Observable<Marker>{
+    console.log(marker)
+    return this.http.put<Marker>(`${this.apiUrl}${marker.id}`, marker).pipe(
+      tap((response) => {
+        const updatedMarkers = this.markersSubject.value.map(m => m.id === response.id ? response : m);
+        this.markersSubject.next(updatedMarkers);
+      }),
+      catchError((error) => {
+        console.log(`Error changing marker info with id ${marker.id}:`, error);
+        throw error
+      })
+    )
+  }
+
+
   deleteMarker(marker: Marker) {
-    const currentMarkers = this.markersSubject.value;
-    const updatedMarkers = currentMarkers.filter(m => m !== marker);
-    this.markersSubject.next(updatedMarkers);
+    return this.http.delete<Marker>(this.apiUrl+marker.id).pipe(
+      tap(() => {
+        const currentMarkers = this.markersSubject.value;
+        const updatedMarkers = currentMarkers.filter(m => m !== marker);
+        this.markersSubject.next(updatedMarkers);
+      }),
+      catchError((error) => {
+        console.log(`Error deleteing marker with id ${marker.id}:`, error);
+        throw error
+      })
+    )
   }
 
 }
