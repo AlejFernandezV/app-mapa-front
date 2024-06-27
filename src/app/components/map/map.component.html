@@ -1,0 +1,17 @@
+
+  <div>
+    <div class="border-4 border-gray-200 rounded-lg shadow-lg">
+      <google-map height="700px" width="100%" [center]="center" [zoom]="zoom" (mapMousemove)="move($event)" [options]="mapOptions"
+        (mapClick)="addMarker($event)">
+        <map-marker *ngFor="let marker of markers$ | async" [position]="{lat:marker.latitude,lng:marker.longitude}" [label]="marker.title"
+          [title]="marker.title">
+        </map-marker>
+      </google-map>
+    </div>
+
+    <div class="invisible lg:visible text-center mt-4">
+      <div class=" text-lg font-semibold">Latitud: <span class="font-normal">{{display?.lat}}</span></div>
+      <div class=" text-lg font-semibold">Longitud: <span class="font-normal">{{display?.lng}}</span></div>
+    </div>
+  </div>
+
