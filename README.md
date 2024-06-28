@@ -1,10 +1,34 @@
-# MapApp
+# Angular Map Marker Application
+This project is an Angular application that displays markers on a Google map. Users can interact with the map to add, update, and delete markers. The application uses a Spring Boot backend to persist marker data. was generated with 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.5.
+## Prerequisites
 
-## Development server
+> [!NOTE]
+> The application will not work unless the backend is running locally, because for various reasons the backend could not be deployed. You can go to this [link](https://github.com/AlejFernandezV/map-app-back) to find the repository and follow the steps in the repository's README.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Before you begin, ensure you have met the following requirements:
+- Node.js and npm installed
+- [Angular CLI](https://github.com/angular/angular-cli) version 18.0.5. installed
+- A running instance of the Spring Boot API (see the backend repository for setup instructions)
+
+## Getting Started
+
+### Clone the Repository
+
+Clone the project repository to your local machine:
+
+```sh
+git clone https://github.com/AlejFernandezV/map-app-front.git
+cd map-app-front
+```
+
+### Install dependencies
+
+Install the project dependencies using npm:
+
+```sh
+npm install
+```
 
 ## Code scaffolding
 

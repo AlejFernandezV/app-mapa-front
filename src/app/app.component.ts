@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MarkerModalComponent } from './components/marker-modal/marker-modal.component';
-
+import { Component} from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
